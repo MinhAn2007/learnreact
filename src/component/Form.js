@@ -15,24 +15,32 @@ const Form = ({add,update,sharedData}) => {
         console.log(form.company.length);
         if(title === 'Update') {
             update(form)
-            setForm({name:'', company:''});
+            setForm({name:'', company:'', id:null});
+            sharedData.id = null;
         }
         else if(form.name.length <= 0  || form.company.length <= 0) 
             alert('Please fill the form');
         else {
             console.log(form.name, form.company);
             add(form);
-            setForm({name:'', company:''});
+            setForm({name:'', company:'', id:null});
         }
         
     }
     return (
         <div>
           <form onSubmit={handleSubmit}>
-            <h1>Form</h1>
-            <input value={form.name} onChange={handleChange} name='name' type="text" placeholder="Name" />
-            <input value={form.company} onChange={handleChange} name='company'  type="text" placeholder="Company" />
-            <button>{title}</button>  
+          <h1 className="text-5xl font-bold underline"> Form </h1>
+            <input
+             className='border-2 border-black p-2 m-2 w-1/2'
+             value={form.name} onChange={handleChange} name='name' type="text" placeholder="Name" />
+            <input
+            className='border-2 border-black p-2 m-2 w-1/2'
+             value={form.company} onChange={handleChange} name='company'  type="text" placeholder="Company" />
+             <br />
+            <button
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            >{title}</button>  
             </form>
         </div>
     );
