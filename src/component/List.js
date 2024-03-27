@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Form from "./Form";
 
-const List = ({ updateSharedData, del }) => {
+const List = ({}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-
+  const [selectedUser, setSelectedUser] = useState(null);
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -42,8 +42,8 @@ const List = ({ updateSharedData, del }) => {
     }
   };
 
-  const sendData = (user) => {
-    updateSharedData(user);
+  const editUser = (user) => {
+    setSelectedUser(user); 
   };
   const add = async (user) => {
     try {
@@ -72,7 +72,7 @@ const List = ({ updateSharedData, del }) => {
       });
       await fetchData();
     } catch (error) {
-      setError('Bạn không có quyền Thêm');
+      setError('Bạn không có quyền Update');
       console.error('Update error:', error);
     }
   };
@@ -80,7 +80,7 @@ const List = ({ updateSharedData, del }) => {
     <div className="container mx-auto">
       {error && <div  className="text-red-500 mb-4" >{error}</div>}
 
-      <Form add={add} update={update} />
+      <Form add={add} update={update} selectedUser={selectedUser}  />
       <h1 className="text-3xl font-bold mb-4">List</h1>
       <table className="w-full border border-gray-400 rounded-md shadow-md">
         <thead>
@@ -111,7 +111,7 @@ const List = ({ updateSharedData, del }) => {
                 <td className="px-4 py-2 flex space-x-2">
                   <button
                     className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    onClick={() => sendData(user)}
+                    onClick={() => editUser(user)}
                   >
                     Edit
                   </button>

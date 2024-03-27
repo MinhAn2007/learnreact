@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const Form = ({ add, update, sharedData }) => {
+const Form = ({ add, update, selectedUser }) => {
     const [form, setForm] = useState({ firstName: '', lastName: '' });
-
+    console.log('selectedUser:', selectedUser);
     useEffect(() => {
-        if (sharedData && sharedData.id) {
-            setForm(sharedData);
+        if (selectedUser && selectedUser.id) {
+            setForm(selectedUser);
         }
-    }, [sharedData]);
+    }, [selectedUser]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,7 +15,7 @@ const Form = ({ add, update, sharedData }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (sharedData && sharedData.id) {
+        if (selectedUser && selectedUser.id) {
             update(form.id, form);
             setForm({ firstName: '', lastName: '', id: null });
         } else if (form.firstName.length <= 0 || form.lastName.length <= 0) {
@@ -27,7 +27,7 @@ const Form = ({ add, update, sharedData }) => {
         }
     };
 
-    const title = sharedData && sharedData.id ? 'Update' : 'Add';
+    const title = selectedUser && selectedUser.id ? 'Update' : 'Add';
 
     return (
         <div>
