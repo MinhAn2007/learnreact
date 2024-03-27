@@ -5,25 +5,26 @@ const Form = ({add,update,sharedData}) => {
     useEffect(() => {
        setForm(sharedData);
     },[sharedData]);
-    const [form, setForm] = useState({name:'', company:''});
+    const [form, setForm] = useState({firstName:'', lastName:''});
     
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form.company.length);
+        console.log(form);
         if(title === 'Update') {
-            update(form)
-            setForm({name:'', company:'', id:null});
+            update(form.id,form)
+            setForm({firstName:'', lastName:'', id:null});
             sharedData.id = null;
         }
-        else if(form.name.length <= 0  || form.company.length <= 0) 
+        else if(form.firstName.length <= 0  || form.lastName.length <= 0) 
             alert('Please fill the form');
         else {
-            console.log(form.name, form.company);
-            add(form);
-            setForm({name:'', company:'', id:null});
+            console.log(form.firstName, form.lastName);
+            let newForm = {...form, isActive:true};
+            add(newForm);
+            setForm({firstName:'', lastName:'', id:null});
         }
         
     }
@@ -33,10 +34,10 @@ const Form = ({add,update,sharedData}) => {
           <h1 className="text-5xl font-bold underline"> Form </h1>
             <input
              className='border-2 border-black p-2 m-2 w-1/2'
-             value={form.name} onChange={handleChange} name='name' type="text" placeholder="Name" />
+             value={form.firstName} onChange={handleChange} name='firstName' type="text" placeholder="firstName" />
             <input
             className='border-2 border-black p-2 m-2 w-1/2'
-             value={form.company} onChange={handleChange} name='company'  type="text" placeholder="Company" />
+             value={form.lastName} onChange={handleChange} name='lastName'  type="text" placeholder="lastName" />
              <br />
             <button
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'

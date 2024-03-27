@@ -10,13 +10,28 @@ function App() {
     setSharedData(newData);
   };
   const [data, setData] = useState([]);
-  const fetchData =() =>fetch('http://localhost:8080/crud/getAll').then(response => response.json()).then(data => setData(data));
-   useEffect(() => {
+  const fetchData = () => {
+    fetch('http://localhost:3002/users')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setData(data);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch request:', error);
+      });
+  };
+  
+  useEffect(() => {
     fetchData();
   }, []);
   
   const add = (user) => {
-    fetch('http://localhost:8080/crud/add', {
+    fetch('http://localhost:3002/users', {
       method:'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,12 +40,12 @@ function App() {
     }).then(response => response.json()).then(()=>fetchData())
   }
   const del = (id) => {
-    fetch('http://localhost:8080/crud/delete/'+id, {
+    fetch('http://localhost:3002/users/'+id, {
       method:'DELETE'
     }).then(req => console.log(req)).then(()=>fetchData())
   }
-  const update = (user) => {
-    fetch('http://localhost:8080/crud/update', {
+  const update = (id,user) => {
+    fetch('http://localhost:3002/users/'+id, {
       method:'PUT',
       headers: {
         'Content-Type': 'application/json'
