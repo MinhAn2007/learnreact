@@ -13,7 +13,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LoginForm />} /> 
         <Route path="/list" element={<List />} /> 
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );
@@ -44,23 +43,7 @@ export default App;
 //     }
 //   }, [isLoggedIn]); // Dependency array
 
-//   const add = async (user) => {
-//     try {
-//       const response = await fetch('http://localhost:3002/users', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(user),
-//       });
-//       if (!response.ok) {
-//         throw new Error('Error adding user');
-//       }
-//       await fetchData(); // Refetch data after successful addition
-//     } catch (error) {
-//       console.error('Error adding user:', error);
-//     }
-//   };
+
 
 //   const del = async (id) => {
 //     try {
@@ -76,23 +59,7 @@ export default App;
 //     }
 //   };
 
-//   const update = async (id, user) => {
-//     try {
-//       const response = await fetch(`http://localhost:3002/users/${id}`, {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(user),
-//       });
-//       if (!response.ok) {
-//         throw new Error('Error updating user');
-//       }
-//       await fetchData(); // Refetch data after successful update
-//     } catch (error) {
-//       console.error('Update error:', error);
-//     }
-//   };
+
 
 //   const handleLoginSuccess = () => {
 //     console.log('Login success');
